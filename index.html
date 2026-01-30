@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>チェックボックスアプリ</title>
+<style>
+  body { font-family: sans-serif; padding: 20px; }
+  .row { margin-bottom: 6px; }
+  .output { margin-top: 20px; font-size: 18px; }
+  button { margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<h2>チェックボックスアプリ</h2>
+
+<label>C2 の値：
+  <input id="c2" type="text" value="★">
+</label>
+
+<div id="list"></div>
+
+<div class="output">
+  <strong>A1:</strong>
+  <span id="a1"></span>
+</div>
+
+<button onclick="copyText()">コピーする</button>
+
+<script>
+const maxChecks = 3; // ← 最大数を自由に変更（1〜3）
+const items = [
+  "りんご","みかん","バナナ","ぶどう","メロン",
+  "いちご","もも","パイン","キウイ","レモン"
+];
+
+const list = document.getElementById("list");
+const a1 = document.getElementById("a1");
+const c2 = document.getElementById("c2");
+
+let order = []; // 押した順番を記録
+
+// UI生成
+items.forEach((text, i) => {
+  const div = document.createElement("div");
+  div.className = "row";
+  div.innerHTML = `
+    <label>
+      <input type="checkbox" data-index="${i}">
+      ${text}
+    </label>
+  `;
+  list.appendChild(div);
+});
+
+// チェックイベント
+list.addEventListener("change", e => {
+  if (!e.target.matches("input[type=checkbox]")) return;
+
+  const idx = Number(e.target.dataset.index);
+
+  // チェック数を数える
+  const checked = [...document.querySelectorAll("input[type=checkbox]")]
+    .filter(c => c.checked);
+
+  // 最大数を超えたら無効化
+  if (checked.length > maxChecks) {
+    e.target.checked = false;
+    return;
+  }
+
+  // 順番管理
+  if (e.target.checked) {
+    order.push(idx);
+  } else {
+    order = order.filter(n => n !== idx);
+  }
+
+  // A1 を更新
+  updateA1();
+});
+
+function updateA1() {
+  const c2Value = c2.value;
+  let result = "";
+
+  order.forEach((idx, i) => {
+    const base = items[idx];
+
+    // 最後のチェックだけ C2 を付けない
+    if (i === maxChecks - 1) {
+      result += base;
+    } else {
+      result += base + c2Value;
+    }
+  });
+
+  a1.textContent = result;
+}
+
+// クリップボードコピー
+function copyText() {
+  navigator.clipboard.writeText(a1.textContent);
+  alert("コピーしました！");
+}
+</script>
+
+</body>
+</html>
