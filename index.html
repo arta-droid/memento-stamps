@@ -138,3 +138,56 @@
   <div class="option">
     10 回コピー
     <label class="toggle">
+      <input type="checkbox" class="copy-btn" data-char="​" data-count="10">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="option">
+    13 回コピー
+    <label class="toggle">
+      <input type="checkbox" class="copy-btn" data-char="​" data-count="13">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="option">
+    20 回コピー
+    <label class="toggle">
+      <input type="checkbox" class="copy-btn" data-char="​" data-count="20">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="option">
+    26 回コピー
+    <label class="toggle">
+      <input type="checkbox" class="copy-btn" data-char="​" data-count="26">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach(cb => {
+    cb.addEventListener('change', () => {
+      if (cb.checked) {
+        const char = cb.dataset.char;
+        const count = Number(cb.dataset.count);
+        const text = char.repeat(count);
+
+        navigator.clipboard.writeText(text)
+          .catch(err => console.error("Copy failed:", err));
+
+        // 他のスイッチをオフにする
+        document.querySelectorAll('.copy-btn').forEach(other => {
+          if (other !== cb) other.checked = false;
+        });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
