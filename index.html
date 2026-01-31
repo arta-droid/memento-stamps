@@ -10,16 +10,26 @@
       background: #f5f7fa;
       margin: 0;
       padding: 20px;
-      font-size: 26px;          /* ← フォントさらに大きく */
+      font-size: 26px;
       color: #333;
     }
 
     h1 {
       text-align: center;
-      font-size: 34px;          /* ← タイトルも大きく */
-      margin-bottom: 30px;
+      font-size: 34px;
+      margin-bottom: 10px;
       color: #222;
       font-weight: 600;
+      line-height: 1.4;
+    }
+
+    h2.subtitle {
+      text-align: center;
+      font-size: 26px;
+      margin-top: 0;
+      margin-bottom: 30px;
+      color: #555;
+      font-weight: 500;
     }
 
     .card {
@@ -36,17 +46,16 @@
       align-items: center;
       padding: 18px 10px;
       border-bottom: 1px solid #eee;
-      font-size: 26px;          /* ← 選択肢も大きく */
+      font-size: 26px;
     }
 
     .option:last-child {
       border-bottom: none;
     }
 
-    /* モダンチェックボックス（大きめ） */
     .option input[type="checkbox"] {
       appearance: none;
-      width: 32px;              /* ← 大きく */
+      width: 32px;
       height: 32px;
       border: 2px solid #888;
       border-radius: 6px;
@@ -74,8 +83,14 @@
 <body>
 
 <h1>メメントモリ　１６０サーバ　よいとこく</h1>
+<h2 class="subtitle">とけねこスタンプ合体用 ZERO スペース</h2>
 
 <div class="card">
+
+  <div class="option">
+    <input type="checkbox" class="copy-btn" data-char="​" data-count="1">
+    1 回コピー
+  </div>
 
   <div class="option">
     <input type="checkbox" class="copy-btn" data-char="​" data-count="10">
