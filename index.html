@@ -6,23 +6,68 @@
 
   <style>
     body {
-      font-size: 22px;
+      font-family: "Segoe UI", sans-serif;
+      background: #f5f7fa;
+      margin: 0;
       padding: 20px;
-      line-height: 1.8;
-      font-family: sans-serif;
+      font-size: 20px;
+      color: #333;
     }
+
     h1 {
-      font-size: 30px;
-      margin-bottom: 25px;
       text-align: center;
+      font-size: 28px;
+      margin-bottom: 25px;
+      color: #222;
+      font-weight: 600;
     }
-    label {
-      display: block;
-      margin-bottom: 18px;
+
+    .card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      max-width: 500px;
+      margin: 0 auto;
     }
-    input[type="checkbox"] {
-      transform: scale(1.6);
-      margin-right: 12px;
+
+    .option {
+      display: flex;
+      align-items: center;
+      padding: 14px 10px;
+      border-bottom: 1px solid #eee;
+      font-size: 22px;
+    }
+
+    .option:last-child {
+      border-bottom: none;
+    }
+
+    /* モダンなチェックボックス */
+    .option input[type="checkbox"] {
+      appearance: none;
+      width: 26px;
+      height: 26px;
+      border: 2px solid #888;
+      border-radius: 6px;
+      margin-right: 14px;
+      cursor: pointer;
+      position: relative;
+      transition: 0.2s;
+    }
+
+    .option input[type="checkbox"]:checked {
+      background: #4a90e2;
+      border-color: #4a90e2;
+    }
+
+    .option input[type="checkbox"]:checked::after {
+      content: "✔";
+      color: white;
+      font-size: 18px;
+      position: absolute;
+      top: 1px;
+      left: 4px;
     }
   </style>
 </head>
@@ -30,27 +75,29 @@
 
 <h1>メメントモリ　１６０サーバ　よいとこく</h1>
 
-<h2>回数を選んでコピー</h2>
+<div class="card">
 
-<label>
-  <input type="checkbox" class="copy-btn" data-char="​" data-count="10">
-  10 回コピー
-</label>
+  <div class="option">
+    <input type="checkbox" class="copy-btn" data-char="​" data-count="10">
+    10 回コピー
+  </div>
 
-<label>
-  <input type="checkbox" class="copy-btn" data-char="​" data-count="13">
-  13 回コピー
-</label>
+  <div class="option">
+    <input type="checkbox" class="copy-btn" data-char="​" data-count="13">
+    13 回コピー
+  </div>
 
-<label>
-  <input type="checkbox" class="copy-btn" data-char="​" data-count="20">
-  20 回コピー
-</label>
+  <div class="option">
+    <input type="checkbox" class="copy-btn" data-char="​" data-count="20">
+    20 回コピー
+  </div>
 
-<label>
-  <input type="checkbox" class="copy-btn" data-char="​" data-count="26">
-  26 回コピー
-</label>
+  <div class="option">
+    <input type="checkbox" class="copy-btn" data-char="​" data-count="26">
+    26 回コピー
+  </div>
+
+</div>
 
 <script>
   document.querySelectorAll('.copy-btn').forEach(cb => {
@@ -61,13 +108,9 @@
         const text = char.repeat(count);
 
         navigator.clipboard.writeText(text)
-          .then(() => {
-            console.log(`Copied ${count} times`);
-          })
-          .catch(err => {
-            console.error("Copy failed:", err);
-          });
+          .catch(err => console.error("Copy failed:", err));
 
+        // 他のチェックをオフ
         document.querySelectorAll('.copy-btn').forEach(other => {
           if (other !== cb) other.checked = false;
         });
