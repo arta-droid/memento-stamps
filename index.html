@@ -83,3 +83,40 @@
   </div>
 
   <div class="option">
+    <input type="checkbox" class="copy-btn" data-char="​" data-count="13">
+    13 回コピー
+  </div>
+
+  <div class="option">
+    <input type="checkbox" class="copy-btn" data-char="​" data-count="20">
+    20 回コピー
+  </div>
+
+  <div class="option">
+    <input type="checkbox" class="copy-btn" data-char="​" data-count="26">
+    26 回コピー
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach(cb => {
+    cb.addEventListener('change', () => {
+      if (cb.checked) {
+        const char = cb.dataset.char;
+        const count = Number(cb.dataset.count);
+        const text = char.repeat(count);
+
+        navigator.clipboard.writeText(text)
+          .catch(err => console.error("Copy failed:", err));
+
+        document.querySelectorAll('.copy-btn').forEach(other => {
+          if (other !== cb) other.checked = false;
+        });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
