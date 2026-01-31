@@ -2,34 +2,49 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Clipboard Test</title>
+  <title>Copy Repeated Text</title>
 </head>
 <body>
 
-<label>
-  <input type="checkbox" id="check1" data-copy="🍎 Apple">
-  Apple をコピー
-</label>
+<h2>回数を選んでコピー</h2>
 
+<label>
+  <input type="checkbox" class="copy-btn" data-char="​" data-count="10">
+  10 回コピー
+</label>
 <br>
 
 <label>
-  <input type="checkbox" id="check2" data-copy="🍌 Banana">
-  Banana をコピー
+  <input type="checkbox" class="copy-btn" data-char="​" data-count="20">
+  20 回コピー
+</label>
+<br>
+
+<label>
+  <input type="checkbox" class="copy-btn" data-char="​" data-count="26">
+  26 回コピー
 </label>
 
 <script>
-  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+  document.querySelectorAll('.copy-btn').forEach(cb => {
     cb.addEventListener('change', () => {
       if (cb.checked) {
-        const text = cb.dataset.copy;
+        const char = cb.dataset.char;     // コピーしたい文字
+        const count = Number(cb.dataset.count); // 回数
+        const text = char.repeat(count);  // 指定回数くり返す
+
         navigator.clipboard.writeText(text)
           .then(() => {
-            console.log("Copied:", text);
+            console.log(`Copied: ${count} times`);
           })
           .catch(err => {
             console.error("Copy failed:", err);
           });
+
+        // 他のチェックを自動でオフにする（任意）
+        document.querySelectorAll('.copy-btn').forEach(other => {
+          if (other !== cb) other.checked = false;
+        });
       }
     });
   });
