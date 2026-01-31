@@ -111,6 +111,27 @@
     input:checked + .slider:before {
       transform: translateX(26px);
     }
+
+    /* トースト通知 */
+    #toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ffcc66;
+      color: #333;
+      padding: 16px 26px;
+      border-radius: 14px;
+      font-size: 24px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    #toast.show {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -170,9 +191,31 @@
     </label>
   </div>
 
+  <!-- 自由入力エリア -->
+  <div class="option" style="flex-direction: column; align-items: flex-start;">
+    <div>自由にコピー回数を指定</div>
+    <input id="free-count" type="number" min="1" max="999"
+           style="font-size:22px; padding:6px; width:120px; margin-top:10px;">
+    <button id="free-copy-btn"
+            style="margin-top:12px; font-size:22px; padding:8px 16px; border-radius:10px;">
+      コピーする
+    </button>
+  </div>
+
 </div>
 
+<!-- トースト通知 -->
+<div id="toast">コピーしたニャ！</div>
+
 <script>
+  // トースト表示
+  function showToast() {
+    const toast = document.getElementById("toast");
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 1800);
+  }
+
+  // トグルのコピー処理
   document.querySelectorAll('.copy-btn').forEach(cb => {
     cb.addEventListener('change', () => {
       if (cb.checked) {
@@ -181,6 +224,7 @@
         const text = char.repeat(count);
 
         navigator.clipboard.writeText(text)
+          .then(() => showToast())
           .catch(err => console.error("Copy failed:", err));
 
         document.querySelectorAll('.copy-btn').forEach(other => {
@@ -188,6 +232,20 @@
         });
       }
     });
+  });
+
+  // 自由入力コピー
+  document.getElementById("free-copy-btn").addEventListener("click", () => {
+    const count = Number(document.getElementById("free-count").value);
+    const char = "​";
+
+    if (!count || count <= 0) return;
+
+    navigator.clipboard.writeText(char.repeat(count))
+      .then(() => showToast())
+      .catch(err => console.error("Copy failed:", err));
+
+    document.querySelectorAll('.copy-btn').forEach(cb => cb.checked = false);
   });
 </script>
 
