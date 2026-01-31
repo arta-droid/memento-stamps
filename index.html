@@ -10,47 +10,47 @@
       background: #f5f7fa;
       margin: 0;
       padding: 20px;
-      font-size: 20px;
+      font-size: 26px;          /* ← フォントさらに大きく */
       color: #333;
     }
 
     h1 {
       text-align: center;
-      font-size: 28px;
-      margin-bottom: 25px;
+      font-size: 34px;          /* ← タイトルも大きく */
+      margin-bottom: 30px;
       color: #222;
       font-weight: 600;
     }
 
     .card {
       background: #fff;
-      padding: 20px;
-      border-radius: 14px;
+      padding: 25px;
+      border-radius: 16px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      max-width: 500px;
+      max-width: 550px;
       margin: 0 auto;
     }
 
     .option {
       display: flex;
       align-items: center;
-      padding: 14px 10px;
+      padding: 18px 10px;
       border-bottom: 1px solid #eee;
-      font-size: 22px;
+      font-size: 26px;          /* ← 選択肢も大きく */
     }
 
     .option:last-child {
       border-bottom: none;
     }
 
-    /* モダンなチェックボックス */
+    /* モダンチェックボックス（大きめ） */
     .option input[type="checkbox"] {
       appearance: none;
-      width: 26px;
-      height: 26px;
+      width: 32px;              /* ← 大きく */
+      height: 32px;
       border: 2px solid #888;
       border-radius: 6px;
-      margin-right: 14px;
+      margin-right: 16px;
       cursor: pointer;
       position: relative;
       transition: 0.2s;
@@ -64,10 +64,10 @@
     .option input[type="checkbox"]:checked::after {
       content: "✔";
       color: white;
-      font-size: 18px;
+      font-size: 22px;
       position: absolute;
-      top: 1px;
-      left: 4px;
+      top: 2px;
+      left: 5px;
     }
   </style>
 </head>
@@ -83,41 +83,3 @@
   </div>
 
   <div class="option">
-    <input type="checkbox" class="copy-btn" data-char="​" data-count="13">
-    13 回コピー
-  </div>
-
-  <div class="option">
-    <input type="checkbox" class="copy-btn" data-char="​" data-count="20">
-    20 回コピー
-  </div>
-
-  <div class="option">
-    <input type="checkbox" class="copy-btn" data-char="​" data-count="26">
-    26 回コピー
-  </div>
-
-</div>
-
-<script>
-  document.querySelectorAll('.copy-btn').forEach(cb => {
-    cb.addEventListener('change', () => {
-      if (cb.checked) {
-        const char = cb.dataset.char;
-        const count = Number(cb.dataset.count);
-        const text = char.repeat(count);
-
-        navigator.clipboard.writeText(text)
-          .catch(err => console.error("Copy failed:", err));
-
-        // 他のチェックをオフ
-        document.querySelectorAll('.copy-btn').forEach(other => {
-          if (other !== cb) other.checked = false;
-        });
-      }
-    });
-  });
-</script>
-
-</body>
-</html>
