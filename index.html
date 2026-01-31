@@ -1,9 +1,39 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>My App</title>
-  </head>
-  <body>
-    <h1>Hello GitHub Pages!</h1>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Clipboard Test</title>
+</head>
+<body>
+
+<label>
+  <input type="checkbox" id="check1" data-copy="🍎 Apple">
+  Apple をコピー
+</label>
+
+<br>
+
+<label>
+  <input type="checkbox" id="check2" data-copy="🍌 Banana">
+  Banana をコピー
+</label>
+
+<script>
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      if (cb.checked) {
+        const text = cb.dataset.copy;
+        navigator.clipboard.writeText(text)
+          .then(() => {
+            console.log("Copied:", text);
+          })
+          .catch(err => {
+            console.error("Copy failed:", err);
+          });
+      }
+    });
+  });
+</script>
+
+</body>
 </html>
