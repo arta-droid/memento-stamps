@@ -31,7 +31,6 @@
       font-weight: 500;
     }
 
-    /* 画像バナー */
     .banner {
       display: block;
       margin: 0 auto 30px auto;
@@ -41,7 +40,6 @@
       box-shadow: 0 6px 18px rgba(0,0,0,0.1);
     }
 
-    /* カード */
     .card {
       background: #fff;
       padding: 28px;
@@ -57,7 +55,6 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* 各行 */
     .option {
       display: flex;
       justify-content: space-between;
@@ -71,7 +68,6 @@
       border-bottom: none;
     }
 
-    /* トグルスイッチ */
     .toggle {
       position: relative;
       width: 60px;
@@ -122,7 +118,6 @@
 <h1>メメントモリ　１６０サーバ　よいとこく</h1>
 <h2 class="subtitle">とけねこスタンプ合体用 ZERO スペース</h2>
 
-<!-- 画像バナー -->
 <img src="とけねこ一覧.png" alt="とけねこスタンプ一覧" class="banner">
 
 <div class="card">
@@ -131,6 +126,14 @@
     1 回コピー
     <label class="toggle">
       <input type="checkbox" class="copy-btn" data-char="​" data-count="1">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="option">
+    2 回コピー
+    <label class="toggle">
+      <input type="checkbox" class="copy-btn" data-char="​" data-count="2">
       <span class="slider"></span>
     </label>
   </div>
@@ -180,7 +183,6 @@
         navigator.clipboard.writeText(text)
           .catch(err => console.error("Copy failed:", err));
 
-        // 他のスイッチをオフにする
         document.querySelectorAll('.copy-btn').forEach(other => {
           if (other !== cb) other.checked = false;
         });
