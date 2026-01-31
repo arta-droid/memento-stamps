@@ -2,9 +2,33 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Copy Repeated Text</title>
+  <title>メメントモリ 160サーバ よいとこく</title>
+
+  <style>
+    body {
+      font-size: 22px;
+      padding: 20px;
+      line-height: 1.8;
+      font-family: sans-serif;
+    }
+    h1 {
+      font-size: 30px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-bottom: 18px;
+    }
+    input[type="checkbox"] {
+      transform: scale(1.6);
+      margin-right: 12px;
+    }
+  </style>
 </head>
 <body>
+
+<h1>メメントモリ　１６０サーバ　よいとこく</h1>
 
 <h2>回数を選んでコピー</h2>
 
@@ -12,13 +36,16 @@
   <input type="checkbox" class="copy-btn" data-char="​" data-count="10">
   10 回コピー
 </label>
-<br>
+
+<label>
+  <input type="checkbox" class="copy-btn" data-char="​" data-count="13">
+  13 回コピー
+</label>
 
 <label>
   <input type="checkbox" class="copy-btn" data-char="​" data-count="20">
   20 回コピー
 </label>
-<br>
 
 <label>
   <input type="checkbox" class="copy-btn" data-char="​" data-count="26">
@@ -29,19 +56,18 @@
   document.querySelectorAll('.copy-btn').forEach(cb => {
     cb.addEventListener('change', () => {
       if (cb.checked) {
-        const char = cb.dataset.char;     // コピーしたい文字
-        const count = Number(cb.dataset.count); // 回数
-        const text = char.repeat(count);  // 指定回数くり返す
+        const char = cb.dataset.char;
+        const count = Number(cb.dataset.count);
+        const text = char.repeat(count);
 
         navigator.clipboard.writeText(text)
           .then(() => {
-            console.log(`Copied: ${count} times`);
+            console.log(`Copied ${count} times`);
           })
           .catch(err => {
             console.error("Copy failed:", err);
           });
 
-        // 他のチェックを自動でオフにする（任意）
         document.querySelectorAll('.copy-btn').forEach(other => {
           if (other !== cb) other.checked = false;
         });
