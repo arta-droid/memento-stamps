@@ -26,11 +26,22 @@
       text-align: center;
       font-size: 24px;
       margin-top: 0;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       color: #555;
       font-weight: 500;
     }
 
+    /* 画像バナー */
+    .banner {
+      display: block;
+      margin: 0 auto 30px auto;
+      max-width: 500px;
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    }
+
+    /* カード */
     .card {
       background: #fff;
       padding: 28px;
@@ -46,6 +57,7 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* 各行 */
     .option {
       display: flex;
       justify-content: space-between;
@@ -110,6 +122,9 @@
 <h1>メメントモリ　１６０サーバ　よいとこく</h1>
 <h2 class="subtitle">とけねこスタンプ合体用 ZERO スペース</h2>
 
+<!-- 画像バナー -->
+<img src="とけねこ一覧.png" alt="とけねこスタンプ一覧" class="banner">
+
 <div class="card">
 
   <div class="option">
@@ -123,55 +138,3 @@
   <div class="option">
     10 回コピー
     <label class="toggle">
-      <input type="checkbox" class="copy-btn" data-char="​" data-count="10">
-      <span class="slider"></span>
-    </label>
-  </div>
-
-  <div class="option">
-    13 回コピー
-    <label class="toggle">
-      <input type="checkbox" class="copy-btn" data-char="​" data-count="13">
-      <span class="slider"></span>
-    </label>
-  </div>
-
-  <div class="option">
-    20 回コピー
-    <label class="toggle">
-      <input type="checkbox" class="copy-btn" data-char="​" data-count="20">
-      <span class="slider"></span>
-    </label>
-  </div>
-
-  <div class="option">
-    26 回コピー
-    <label class="toggle">
-      <input type="checkbox" class="copy-btn" data-char="​" data-count="26">
-      <span class="slider"></span>
-    </label>
-  </div>
-
-</div>
-
-<script>
-  document.querySelectorAll('.copy-btn').forEach(cb => {
-    cb.addEventListener('change', () => {
-      if (cb.checked) {
-        const char = cb.dataset.char;
-        const count = Number(cb.dataset.count);
-        const text = char.repeat(count);
-
-        navigator.clipboard.writeText(text)
-          .catch(err => console.error("Copy failed:", err));
-
-        document.querySelectorAll('.copy-btn').forEach(other => {
-          if (other !== cb) other.checked = false;
-        });
-      }
-    });
-  });
-</script>
-
-</body>
-</html>
